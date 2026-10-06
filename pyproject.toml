@@ -1,0 +1,80 @@
+[build-system]
+requires = ["hatchling>=1.21"]
+build-backend = "hatchling.build"
+
+[project]
+name = "geoexp-units"
+description = "Ready-made unit hierarchies for geoexp: IBGE municipalities, and more to come."
+readme = "README.md"
+license = { file = "LICENSE" }
+requires-python = ">=3.11"
+authors = [
+    { name = "geoexp contributors" },
+]
+keywords = [
+    "geo-experiments",
+    "ibge",
+    "brazil",
+    "municipalities",
+    "geoexp",
+]
+classifiers = [
+    "Development Status :: 2 - Pre-Alpha",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Scientific/Engineering :: Information Analysis",
+    "Typing :: Typed",
+]
+dynamic = ["version"]
+
+# geoexp owns the Hierarchy contract; this package only ships data built on it.
+# 0.2.0 is the release that introduced Hierarchy.
+dependencies = [
+    "geoexp>=0.2.0",
+    "polars>=1.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.0",
+    "ruff>=0.5",
+    "mypy>=1.10",
+]
+
+[project.urls]
+Repository = "https://github.com/mrcsvg/geoexp-units"
+Issues = "https://github.com/mrcsvg/geoexp-units/issues"
+
+[tool.hatch.version]
+path = "src/geoexp_units/_version.py"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/geoexp_units"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+src = ["src", "tests", "scripts"]
+
+[tool.ruff.lint]
+select = ["E", "W", "F", "I", "B", "UP", "N", "SIM", "RUF", "D"]
+ignore = ["D100", "D104", "D105", "E501"]
+
+[tool.ruff.lint.pydocstyle]
+convention = "numpy"
+
+[tool.ruff.lint.per-file-ignores]
+"tests/**/*.py" = ["D"]
+
+[tool.mypy]
+python_version = "3.12"
+strict = true
+
+[tool.pytest.ini_options]
+minversion = "8.0"
+testpaths = ["tests"]
+addopts = ["-ra", "--strict-markers", "--strict-config"]
+filterwarnings = ["error"]

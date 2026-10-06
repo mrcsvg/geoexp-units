@@ -1,0 +1,1 @@
+IBGE, API de Localidades (https://servicodados.ibge.gov.br/api/v1/localidades/municipios), extracted 2026-09-25
